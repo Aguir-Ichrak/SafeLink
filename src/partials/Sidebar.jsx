@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, Navigate, useLocation } from 'react-router-dom';
 import { FaUserGroup } from "react-icons/fa6";
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { RiBuilding2Fill } from "react-icons/ri";
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch} from 'react-redux';
+import { logOut } from "../store/UserReducer";
+
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
+  const dispatch = useDispatch();
 
+ const  handelLogOut = ()=>{
+  dispatch(logOut())
+  Navigate('/sign-in')
+ }
   const trigger = useRef(null);
   const sidebar = useRef(null);
   const curentUser = useSelector((state) => {return state.users.curentUser});
@@ -431,7 +438,7 @@ d="M7.5,5C5.6,5,4,6.6,4,8.5S5.6,12,7.5,12S11,10.4,11,8.5S9.4,5,7.5,5z M16.5,5C14
                               </span>
                             </NavLink>
                           </li>
-                          <li className="mb-1 last:mb-0">
+                          <li className="mb-1 last:mb-0" onClick={handelLogOut}>
                             <NavLink end to="/sign-in" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                 Sign Out

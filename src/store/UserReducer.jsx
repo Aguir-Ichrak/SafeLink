@@ -43,6 +43,13 @@ const userReducer = (state = initialState, action) => {
             ...state,
             curentUser: action.payload,
           };
+          case LOG_OUT_USER_SUCCESS:
+            localStorage.removeItem('curentUser')
+          return {
+            ...state,
+            curentUser: null,
+          };
+          
       default:
         return state;
     }
@@ -71,6 +78,9 @@ export const fetchUsersSuccess = (users) => ({
   export const signInSuccess = (user) => ({
     type: SIGN_IN_USER_SUCCESS,
     payload: user,
+  });
+  export const logOutSuccess = () => ({
+    type: LOG_OUT_USER_SUCCESS
   });
  
   // Functions
@@ -188,6 +198,11 @@ export const singIn = (userData)=>{
       console.error(error);
     }
   };
+}
+export const logOut = ()=>{
+  return async (dispatch) => {
+
+dispatch(logOutSuccess())}
 }
 
 

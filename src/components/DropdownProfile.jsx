@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
 import UserAvatar from '../images/user-avatar-32.png';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 function DropdownProfile({
   
@@ -12,10 +12,14 @@ function DropdownProfile({
   const curentUser = useSelector((state) => {return state.users.curentUser});
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
-
+  const  handelLogOut = ()=>{
+    dispatch(logOut())
+    Navigate('/sign-in')
+   }
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -88,7 +92,7 @@ function DropdownProfile({
             <Link
               className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
               to="/signin"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => {handelLogOut();setDropdownOpen(!dropdownOpen)}}
             >
               Sign Out
             </Link>
