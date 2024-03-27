@@ -5,14 +5,19 @@ import { useDispatch } from "react-redux";
 import EditIcon from "../EditIcon";
 import {IconButton} from "@material-tailwind/react";
 import { BsBuildingFillGear } from "react-icons/bs";
-import { fetchBuildings } from "../../store/BuildingReducer";
+import { editBuilding, fetchBuildings } from "../../store/BuildingReducer";
 export default function EditBuildingsModal({ UpBuilding }) {
   const [building, setBuilding] = useState({
     block: UpBuilding.block,
     floor: UpBuilding.floor,
     name: UpBuilding.name,
+    status :UpBuilding.status
   });
 
+  const [checked, setChecked] = useState(true);
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+  };
   const dispatch = useDispatch();
 
   const handleEdit = async (e) => {
@@ -30,12 +35,6 @@ export default function EditBuildingsModal({ UpBuilding }) {
     }
   };
 
-  const [selectedBlock, setSelectedBlock] = useState("01");
-  const handleBlockChange = (e) => {
-      setSelectedBlock(e.target.value);
-      setBuilding({ ...building, block: e.target.value });
-  };
-
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const data = (e) => {
@@ -45,7 +44,7 @@ export default function EditBuildingsModal({ UpBuilding }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
- <IconButton variant="outlined" className="rounded-full" style={{color:"#00809d"}} onClick={() => setShowModal(true)}>
+ <IconButton  className="shadow-none" style={{color:"#00809d"}} onClick={() => setShowModal(true)}>
       <EditIcon />
       </IconButton>
       {showModal ? (
@@ -61,7 +60,7 @@ export default function EditBuildingsModal({ UpBuilding }) {
                   <h3 className="text-3xl font-semibold blue-color">
                     Building Form
                   </h3>
-                  <div className="self-center"
+                  <div className="self-center gap-5"
   style={{
     backgroundColor: "transparent",
     fontSize:"x-large"  }}
@@ -74,32 +73,23 @@ className='blue-color'
                 {/*body*/}
                 <Card color="transparent" shadow={false} className="flex flex-col nowrap-flex item-center">
         <form className="mt-8 mb-3 max-w-screen-lg w-80" method='POST'>
-          <div className="mb-1 flex gap-6 flex-col item-center">
+          <div className="mb-3 flex gap-6 flex-col item-center">
             <div className="w-60 flex gap-4 flex-col" >
           <Typography variant="h6" color="blue-gray" className="-mb-3" >
           Block Number
             </Typography>
-            <select
-                           value={selectedBlock}
-                           onChange={handleBlockChange}
-                          className="h-full"
-                        >
-                          <option value="01"> 01</option>
-                          <option value="02">02</option>
-                          <option value="03">03</option>
-                        </select>
-            {/* <Input
-                        type='number'
-              size="lg"
-              name='block'
+            <Input
+            type='number'
+            size="lg"
+            name='block'
+            value={building.block}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              value={building.block}
               onChange={data}
               required
-            /> */}
+            />
             </div>
               <div className="w-60 flex gap-4 flex-col" >
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -135,6 +125,23 @@ className='blue-color'
               required
             />
             </div>
+            <div className="w-60 flex gap-4 flex-col">
+                        <Checkbox
+                          style={{ color: "rgb(0, 128, 157)" }}
+                          checked={building.status}
+                          onChange={handleCheckboxChange}
+                          label={
+                            <Typography
+                              variant="h6"
+                              color="blue-gray"
+                              className="flex items-center font-normal font-w"
+                            >
+                              Available
+                            </Typography>
+                          }
+                          containerProps={{ className: "-ml-2.5" }}
+                        />
+                      </div>
           </div>
                           {/*footer*/}
                           <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -157,7 +164,7 @@ className='blue-color'
                     type="button"
                     onClick={handleEdit}
                   >
-                    Save Building
+                    Save Modifications
                   </button>
                 </div>
         </form>

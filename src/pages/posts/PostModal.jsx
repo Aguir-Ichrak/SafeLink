@@ -8,8 +8,14 @@ import { RiEdit2Fill } from "react-icons/ri";
 
   const [post, setPost] = useState({
     content: "",
-    comment: [],
-    userKey:curentUser.key,
+    comment: [{
+      text: "First comment",
+      userKey: "-NtkUhtO8ekJmSkLIGE5",
+      date: "--"
+    },],
+    userKey:curentUser.id,
+    date:null,
+    like:0
   });
 
   const dispatch = useDispatch();
@@ -24,7 +30,10 @@ import { RiEdit2Fill } from "react-icons/ri";
       setShowModal(false);
       setPost({
         content: "",
-        comment: [],
+    comment: {},
+    userKey:curentUser.id,
+    date:null,
+    like:0
       });
     } catch (error) {
       console.error("Failed to add post:", error);
@@ -86,7 +95,10 @@ className="blue-color"
                         setShowModal(false);
                         setPost({
                           content: "",
-                          comment: [],
+                          comment: {},
+                          userKey:curentUser.id,
+                          date:null,
+                          like:0
                         });
                       }}
                     >

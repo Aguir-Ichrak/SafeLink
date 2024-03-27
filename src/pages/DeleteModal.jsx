@@ -24,7 +24,7 @@ catch (error) {
 
   return (
     <>
-     <IconButton className="rounded-full" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
+     <IconButton className="shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
                         setshowDeleteModal(true)
                       }} >
                 <TrashIcon />
@@ -37,7 +37,7 @@ catch (error) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    Are you sure to delete this {msg}?
+                    Are you sure to delete {user.name} ?
                   </p>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">

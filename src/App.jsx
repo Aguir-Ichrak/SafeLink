@@ -44,8 +44,8 @@ const navigate = useNavigate()
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         )}   
         <Routes>
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {currentUser ? <Route path="/sign-in" element={<SignIn />} />: null }
+        <Route path="/dashboard" element={<Dashboard />} />
+          {currentUser ? null : <Route path="/sign-in" element={<SignIn />} /> }
           {currentUser ? <Route path="/users" element={<Users />} /> : null}
           {currentUser ? <Route path="/buildings" element={<Buildings />} /> : null}
           {currentUser ? <Route path="/posts" element={<PostsList />} /> : null}

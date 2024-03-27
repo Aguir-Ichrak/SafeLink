@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { deleteBuilding, fetchBuildings  } from '../../store/BuildingReducer';
 import DeleteBuild from './DeleteBuild';
 import EditBuildingsModal from './EditBuildingsModal';
+import { GoDotFill } from 'react-icons/go';
   function Buildings() {
 
     const buildings = useSelector((state) => state.buildings.buildings);
@@ -21,8 +22,21 @@ dispatch(fetchBuildings());
   return (
     <div className="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 m-4 h-full ">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 userHeader">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Buildings List</h2>
-        <BuildingsModal  />
+      <div class="mb-1 w-full">
+        <div class="mb-4">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-900">All Buildings</h2>
+        </div>
+        <div class="sm:flex">
+            <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                <form class="lg:pr-3" action="#" method="GET">
+                <div class="mt-1 relative lg:w-64 xl:w-96">
+                    <input type="search" id="buildings-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-gray-600 block w-full p-2.5" placeholder="Search for buildings"/>
+                </div>
+                </form>
+            </div>
+            <BuildingsModal  />
+        </div>
+    </div> 
       </header>
         {/* Table */}
         <div className="overflow-x-auto p-3 w-tab ">
@@ -38,6 +52,9 @@ dispatch(fetchBuildings());
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Building Name</div>
+                </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Status</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center"></div>
@@ -59,6 +76,35 @@ dispatch(fetchBuildings());
                 <td className="p-2">
                   <div className="text-center text-emerald-500">{building.name}</div>
                 </td>
+                <td>
+                <div className="text-center flex items-center justify-center" >
+                  <div
+                      style={{
+                        backgroundColor: "#ffffff",
+                      }}
+                    >
+                      <GoDotFill 
+                        style={{
+                          color: building.status ? "rgb(16 185 129 / var(--tw-text-opacity))" : "rgba(255, 0, 0, 0.68)",
+                        }}
+                      />
+                    </div>
+                      {building.status ? 
+                      <div 
+                        style={{
+                          color:"rgb(16 185 129 / var(--tw-text-opacity))" 
+                        }}
+
+                      >Available</div> 
+    :<div 
+                      style={{
+                        color:"rgba(255, 0, 0, 0.68)" 
+                      }}
+
+                    >Reserved</div> }
+
+                    </div>
+                    </td>
                 <td className="p-2 flex flex-row nowrap-flex justify-center gap-4 ">
                 <DeleteBuild building={building} msg={"building"}  />
                 <EditBuildingsModal UpBuilding={building}/>

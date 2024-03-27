@@ -57,7 +57,7 @@ export default function EditUsersModal({ UpUser }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
- <IconButton variant="outlined" className="rounded-full" style={{color:"#00809d"}} onClick={() => setShowModal(true)}>
+ <IconButton className="shadow-none" style={{color:"#00809d"}} onClick={() => setShowModal(true)}>
       <EditIcon />
       </IconButton>
             {showModal ? (

@@ -126,17 +126,15 @@ export default function UsersModal() {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <button
-        className="btn bg-indigo-500 hover:bg-indigo-600 text-white"
-        onClick={() => setShowModal(true)}
-        type="button"
-      >
-        <img
+                <div class="flex items-center space-x-2 sm:space-x-3 ml-auto">
+                <button type="button" data-modal-toggle="add-user-modal" onClick={() => setShowModal(true)} class="bg-indigo-500 hover:bg-indigo-600 w-1/2 text-white gap-25 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                <img
           src="src/images/add-user.png"
           className="w-5 h-5 fill-current opacity-50 shrink-0"
         />
-        <span className="hidden xs:block ml-2">Add User</span>
-      </button>
+                            Add User
+                </button>
+            </div>
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -145,7 +143,7 @@ export default function UsersModal() {
               {/*header*/}
               <div className="flex justify-between p-5 rounded-t self-center gap-4">
                 <h3 className="text-3xl font-semibold blue-color" >User Form</h3>
-                <div className="self-center"
+                <div className="self-center gap-5"
   style={{
     backgroundColor: "transparent",
     fontSize:"x-large"

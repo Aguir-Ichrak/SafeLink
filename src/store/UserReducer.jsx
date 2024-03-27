@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
 // Action Types
 const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
 const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 const SIGN_IN_USER_SUCCESS ='SIGN_IN_USER_SUCCESS '
+const LOG_OUT_USER_SUCCESS ='LOG_OUT_USER_SUCCESS '
 // Initial State
 const initialState = {
     users: [],

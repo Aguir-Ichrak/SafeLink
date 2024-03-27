@@ -106,19 +106,19 @@ export const addBuilding = (building) => {
 
 }
   
-  export const deleteBuilding = (buildingId) => {
-    return async (dispatch) => {
-      try {
-        const options = { method: 'DELETE' };
-        const response = await fetch(`https://safelink-fa263-default-rtdb.firebaseio.com/UserData/${buildingId}.json`, options);
-        if (response.ok) {
-            dispatch(deleteBuildingSuccess(buildingId));
-                }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+export const deleteBuilding = (buildingId) => {
+  return async (dispatch) => {
+    try {
+      const options = { method: 'DELETE' };
+      const response = await fetch(`https://safelink-fa263-default-rtdb.firebaseio.com/BuildingData/${buildingId}.json`, options);
+      if (response.ok) {
+          dispatch(deleteBuildingSuccess(buildingId));
+              }
+    } catch (error) {
+      console.error(error);
+    }
   };
+};
 
   export const editBuilding = (id, newData) => {
     return async (dispatch) => {

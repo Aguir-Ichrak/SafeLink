@@ -3,7 +3,7 @@ import { IconButton } from "@material-tailwind/react";
 import TrashIcon from "../DeleteIcon";
 import { useDispatch } from "react-redux";
 import { deleteBuilding } from "../../store/BuildingReducer";
-export default function DeleteBuild({ building,msg }) {
+export default function DeleteModal({ building,msg }) {
   const [showDeleteModal, setshowDeleteModal] = useState(false);
 
 const dispatch = useDispatch();
@@ -18,13 +18,13 @@ const handleDeleteBuilding = async (e) => {
     setshowDeleteModal(false);
     }
 catch (error) {
-    console.error("Failed to delete user:", error);
+    console.error("Failed to delete building:", error);
   }
 };
 
   return (
     <>
-     <IconButton variant="outlined" className="rounded-full" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
+     <IconButton className="shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
                         setshowDeleteModal(true)
                       }} >
                 <TrashIcon />
@@ -37,7 +37,7 @@ catch (error) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    Are you sure to delete this {msg}?
+                    Are you sure to delete this building ?
                   </p>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -59,7 +59,6 @@ catch (error) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       )}
     </>
