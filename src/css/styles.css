@@ -609,7 +609,7 @@ border-radius: 0.4rem !important;
   width: 30%;
 }
 .w-tab{
-  height: calc(100vh - 238px);
+  height: calc(100vh - 242px);
 }
 .active-svg{
   --tw-text-opacity: 1;
