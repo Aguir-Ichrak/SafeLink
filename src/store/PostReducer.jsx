@@ -3,6 +3,7 @@ const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
 const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 const ADD_COMMENT_SUCCES = "ADD_COMMENT_SUCCES";
+const LLIKE_COMMENT_SICCES = "LLIKE_COMMENT_SICCES";
 // Initial State
 const initialState = {
   posts: [],
@@ -32,18 +33,37 @@ const PostReducer = (state = initialState, action) => {
         posts: state.posts.filter((post) => post.id !== action.payload),
       };
     case ADD_COMMENT_SUCCES:
-      // let data = state.posts.map((i) => {
-      //   if (i.id == action.payload.id) {
-      //     i.comment = action.payload.comment;
-      //     return i
-      //   }
-      // });
+      console.log('add comment succes',state.posts,action.payload)
+      let data = state.posts.map((i) => {
+        if (i.id == action.payload.id) {
+          console.log('here add comment')
+          i.comment = action.payload.comment;
+          i.newCommentText = '';
+          return i
+        }else{
+          return i
+        }
+      });
+      console.log('add comment succes data',data)
 
-      // return {
-      //   ...state,
-      //   posts: data,
-      // };
+      return {
+        ...state,
+        posts: data,
+      };
+    case  LLIKE_COMMENT_SICCES:
+      let likeData = state.posts.map((i) => {
+        if (i.id == action.payload.id) {
+          i.like = action.payload.like;
+          return i
+        }else{
+          return i
+        }
+      });
 
+      return {
+        ...state,
+        posts: likeData,
+      };
     default:
       return state;
   }
@@ -66,6 +86,10 @@ export const deletePostSuccess = (postId) => ({
 });
 export const editPostSuccess = (payload) => ({
   type: ADD_COMMENT_SUCCES,
+  payload: payload,
+});
+export const editLikeSuccess = (payload) => ({
+  type: LLIKE_COMMENT_SICCES,
   payload: payload,
 });
 
@@ -139,6 +163,7 @@ export const addComment = (data) => {
     try {
       let body = data.post;
       body.comment.push(data.commentData);
+      body.newCommentText=null
       const options = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -150,7 +175,20 @@ export const addComment = (data) => {
       );
       if (response.ok) {
         const updatedPost = await response.json();
-        // dispatch(editPostSuccess(updatedPost));
+        dispatch(editPostSuccess(updatedPost));
+        if(data.post.userKey!==data.commentData.userKey){
+           let notifData={date:new Date(),message:data.userComment+' Commanted your poste',title:'Commnt',icon:'comment',userKey:data.post.userKey}
+        const options2 = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(notifData),
+        };
+        const response2 = await fetch(
+          "https://safelink-fa263-default-rtdb.firebaseio.com/Notification.json",
+          options2
+        );
+        }
+       
         //call api to send notification
       } else {
         console.error(
@@ -165,7 +203,8 @@ export const addComment = (data) => {
   };
 };
 export const reactToPost =(data) => {
-  let body = data 
+  let body = data.post
+  body.newCommentText=null
   body.like =  body.like+1;
   return async (dispatch) => {
     try {
@@ -175,13 +214,25 @@ export const reactToPost =(data) => {
         body: JSON.stringify(body),
       };
       const response = await fetch(
-        `https://safelink-fa263-default-rtdb.firebaseio.com/PostData/${data.id}.json`,
+        `https://safelink-fa263-default-rtdb.firebaseio.com/PostData/${data.post.id}.json`,
         options
       );
       if (response.ok) {
         const updatedPost = await response.json();
-        dispatch(editPostSuccess(updatedPost));
+        dispatch(editLikeSuccess(updatedPost));
         //call api to send notification
+        if(data.post.userKey!==data.userKey){
+          let notifData={date:new Date(),message:data.userComment+' liked your poste',title:'Like',icon:'like',userKey:data.post.userKey}
+       const options2 = {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify(notifData),
+       };
+       const response2 = await fetch(
+         "https://safelink-fa263-default-rtdb.firebaseio.com/Notification.json",
+         options2
+       );
+       }
       } else {
         console.error(
           "Failed to add comment. Server returned:",

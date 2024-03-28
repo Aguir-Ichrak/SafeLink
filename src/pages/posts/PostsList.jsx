@@ -21,7 +21,25 @@ export default function PostsList() {
     return state.users.users;
   });
   const dispatch = useDispatch();
-
+  const formatDate = (dateString) => {
+    const options = {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    
+    const today = new Date();
+    if (date.toDateString() === today.toDateString()) {
+      return `Today at ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+    } else {
+      return formattedDate;
+    }
+  };
   //get
   useEffect(() => {
     dispatch(fetchPosts());
@@ -39,11 +57,12 @@ export default function PostsList() {
     dispatch(addComment(data));
   };
   const handelreactToPost = (data) => {
+    console.log('hereeee react')
     dispatch(reactToPost(data));
   };
-  const showComment = (post) => {
-    console.log("ieferjervnierjn");
-    post.showComment = !post.showComment;
+  const showComment = (index) => {
+    console.log("ieferjervnierjn",posts[index].showComment );
+    posts[index].showComment = ! posts[index].showComment;
   };
 
   const [commentText, setCommentText] = useState("");
@@ -62,11 +81,11 @@ export default function PostsList() {
       </header>
       {/* card */}
       <div className="overflow-x-auto p-3 w-tab flex flex-col nowrap-flex item-center gap-4 ">
-        {Array.isArray(posts) &&
+        {
           posts.map((post, index) => (
             <Card
               className="mt-6 w-96 w-50 p-6 bg-white dark:bg-slate-800 shadow-md  rounded border border-slate-200 dark:border-slate-700 "
-              key={index}
+              key={'post'+index}
             >
               <CardBody variant="h5" color="blue-gray" className="p-0">
                 <div className="flex gap-5 items-center">
@@ -83,7 +102,7 @@ export default function PostsList() {
                         ? CommentUserName(post.userKey)
                         : null}
                     </div>
-                    <div className="text-xs text-slate-500 ">{post.date}</div>
+                    <div className="text-xs text-slate-500 ">{post.date ? formatDate(post.date) : ''}</div>
                   </div>
                 </div>
 
@@ -95,7 +114,7 @@ export default function PostsList() {
               <footer class="flex items-center">
                 <button
                   class="flex items-center    text-[#94a3b8] mr-4"
-                  onClick={handelreactToPost(post)}
+                  onClick={()=>handelreactToPost({post: post,userComment:CommentUserName(curentUser.id),userKey:curentUser.id })}
                 >
                   <svg
                     class="fill-current	 c7n6y mr-2  w-[1rem]"
@@ -107,10 +126,9 @@ export default function PostsList() {
                     {post.like}
                   </div>
                 </button>
-                -- {post.showComment} ---
                 <button
                   class="flex items-center    text-[#94a3b8]"
-                  onClick={showComment(post)}
+                  onClick={()=>showComment(index)}
                 >
                   <svg
                     class="fill-current	 c7n6y mr-2  w-[1rem]"
@@ -123,12 +141,12 @@ export default function PostsList() {
                   </div>
                 </button>
               </footer>
-              <div class="border-slate-200 dark:border-slate-700 border-slate-200 dark:border-slate-700 mt-5	pt-3 border-t">
+              {post.showComment == true?  <div class="border-slate-200 dark:border-slate-700 border-slate-200 dark:border-slate-700 mt-5	pt-3 border-t">
                 <ul class=" mb-2">
                   {post.comment.map((com, indexC) =>
                     indexC > 0 ? (
-                      <li class="rounded">
-                        <div class="flex cxbmt cb7d8">
+                      <li class="rounded pl-1 mb-2">
+                        <div class="flex cxbmt cb7d8 gap-5">
                           <img
                             className="w-8 h-8 rounded-full"
                             src={UserAvatar}
@@ -146,7 +164,7 @@ export default function PostsList() {
                                   ? CommentUserName(com.userKey)
                                   : null}
                               </a>{" "}
-                              {com.date}
+                              {com.date ? formatDate(com.date) : ''}
                             </div>
                             <div class="text-sm">{com.text}</div>
                           </div>
@@ -159,7 +177,8 @@ export default function PostsList() {
                                             <div class="text-sm text-slate-500 dark:text-slate-400"><span class="ch1ih c6w4h cw92y">2</span> of <span class="ch1ih c6w4h cw92y">67</span> comments</div>
                                             <button class="text-sm text-indigo-500 cuv1l cdi3j cw92y">View More Comments</button>
                                         </div> */}
-              </div>
+              </div> : ''}
+            
 
               <div className="pt-0 px-0">
                 <div className="  flex-row gap-3 flex items-center mt-3		">
@@ -170,17 +189,17 @@ export default function PostsList() {
                     height="20"
                   />
                   <div className="relative flex w-full max-w-[24rem] item-center bg-slate-100 rounded grow">
-                    {/* <Input
+                    <Input
         type="text"
         name="comment"
         value={post.newCommentText}
-        onInput={handleCommentChange(event,post)}
+        onInput={()=>handleCommentChange(event,post)}
       //   onKeyDownCapture={(e)=>{addNewComment({commentData:{text: e.target.value,userKey: curentUser.id,date: "--"},post:post})
       // }
       // }
 className="border-transparent focus:bg-white py-2 px-3 text-sm focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded bg-slate-200 text-slate-800 w-full	"
       placeholder="Write a comment ..."
-      /> */}
+      />
                     <Button
                       size="sm"
                       // color={email ? "gray" : "blue-gray"}
@@ -195,8 +214,8 @@ className="border-transparent focus:bg-white py-2 px-3 text-sm focus:border-slat
                               date: new Date(),
                             },
                             post: post,
+                            userComment:CommentUserName(curentUser.id),
                           });
-                          post.newCommentText = null;
                         }
                       }}
                     >
