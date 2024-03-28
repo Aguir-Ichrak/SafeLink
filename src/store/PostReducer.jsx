@@ -16,9 +16,10 @@ const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POSTS_SUCCESS:
       console.log("fatchhh", action.payload);
+      let posts=action.payload
       return {
         ...state,
-        posts: action.payload,
+        posts: posts,
       };
     case ADD_POST_SUCCESS:
       return {
@@ -31,17 +32,17 @@ const PostReducer = (state = initialState, action) => {
         posts: state.posts.filter((post) => post.id !== action.payload),
       };
     case ADD_COMMENT_SUCCES:
-      let data = state.posts.map((i) => {
-        if (i.id == action.payload.id) {
-          i.comment = action.payload.comment;
-          return i
-        }
-      });
+      // let data = state.posts.map((i) => {
+      //   if (i.id == action.payload.id) {
+      //     i.comment = action.payload.comment;
+      //     return i
+      //   }
+      // });
 
-      return {
-        ...state,
-        posts: data,
-      };
+      // return {
+      //   ...state,
+      //   posts: data,
+      // };
 
     default:
       return state;
@@ -149,7 +150,38 @@ export const addComment = (data) => {
       );
       if (response.ok) {
         const updatedPost = await response.json();
+        // dispatch(editPostSuccess(updatedPost));
+        //call api to send notification
+      } else {
+        console.error(
+          "Failed to add comment. Server returned:",
+          response.status,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Failed to edit comment:", error);
+    }
+  };
+};
+export const reactToPost =(data) => {
+  let body = data 
+  body.like =  body.like+1;
+  return async (dispatch) => {
+    try {
+      const options = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      };
+      const response = await fetch(
+        `https://safelink-fa263-default-rtdb.firebaseio.com/PostData/${data.id}.json`,
+        options
+      );
+      if (response.ok) {
+        const updatedPost = await response.json();
         dispatch(editPostSuccess(updatedPost));
+        //call api to send notification
       } else {
         console.error(
           "Failed to add comment. Server returned:",

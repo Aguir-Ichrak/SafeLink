@@ -9,12 +9,13 @@ import { DoAlert } from '../DoAlert';
 import {  addBuilding, fetchBuildings } from '../../store/BuildingReducer';
 import { useDispatch } from 'react-redux';
 import { BsBuildingFillGear } from "react-icons/bs";
+import userReducer from '../../store/UserReducer';
 export default function BuildingsModal() {
     const [building, setBuilding] = useState({
         block: "",
         floor: "",
         name: "",
-        status:""
+        status:false
       });
 
       const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function BuildingsModal() {
             block: "",
             floor: "",
             name: "",
-            status:true
+            status:false
           });
         } catch (error) {
           console.error("Failed to add building:", error);
@@ -144,8 +145,8 @@ className='blue-color'
             <div className="w-60 flex gap-4 flex-col">
                         <Checkbox
                           style={{ color: "rgb(0, 128, 157)" }}
-                          checked={checked}
-                          onChange={handleCheckboxChange}
+                          value={building.status}
+                          onChange={()=>building.status=!building.status}
                           label={
                             <Typography
                               variant="h6"

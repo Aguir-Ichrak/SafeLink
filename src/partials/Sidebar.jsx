@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Navigate, useLocation } from 'react-router-dom';
-import { FaUserGroup } from "react-icons/fa6";
 import SidebarLinkGroup from './SidebarLinkGroup';
-import { RiBuilding2Fill } from "react-icons/ri";
 import { useSelector ,useDispatch} from 'react-redux';
 import { logOut } from "../store/UserReducer";
 
@@ -188,9 +186,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       </span>
                     </div>
                     {/* Badge */}
-                    <div className="flex flex-shrink-0 ml-2">
+                    {/* <div className="flex flex-shrink-0 ml-2">
                       <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded">4</span>
-                    </div>
+                    </div> */}
                   </div>
                 </NavLink>
               </li>
@@ -251,8 +249,7 @@ d="M7.5,5C5.6,5,4,6.6,4,8.5S5.6,12,7.5,12S11,10.4,11,8.5S9.4,5,7.5,5z M16.5,5C14
                   }`}
                 >
                   <div className="flex items-center">
-{/* scgicon */}
-
+<img src='src/images/buildings.png' className='h-1'/>
 <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                     Buildings
                     </span>

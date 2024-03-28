@@ -15,7 +15,7 @@ export default function UsersModal() {
     number: "",
     date: "",
     role: "user",
-    active: true,
+    active: false,
     building: "",
     start: "",
     end: "",
@@ -31,10 +31,10 @@ export default function UsersModal() {
     return key;
   }
   function sendEmail() {
-    const serviceID = "service_9ronxe9";
-    const templateID = "template_cq0uxhe";
-    const userID = "jklgKWqX97VuBSice";
-
+    const serviceID = "safelink_service";
+    const templateID = "template_ss8irxk";
+    const userID = "PX4N5Qh9X307AciZP";
+     
     emailjs
       .send(
         serviceID,
@@ -43,7 +43,7 @@ export default function UsersModal() {
           from_name: "SAFE LINK",
           to_name: user.name,
           to_email:user.email,
-          message: "Your login :"+user.email + "and your password : "+ user.password,
+          message: "Your login :"+user.email + "\n"+"Your password : "+ user.password,
         },
         userID
       )
@@ -74,7 +74,7 @@ export default function UsersModal() {
         number: "",
         date: "",
         role: "user",
-        active: true,
+        active: false,
         building: "",
         start: "",
         end: "",
@@ -277,8 +277,8 @@ className="blue-color"
                       <div className="w-60 flex gap-4 flex-col">
                         <Checkbox
                           style={{ color: "rgb(0, 128, 157)" }}
-                          checked={checked}
-                          onChange={handleCheckboxChange}
+                          value={user.active}
+                          onChange={(event)=>{ user.active=!user.active}}
                           label={
                             <Typography
                               variant="h6"
@@ -367,7 +367,7 @@ className="blue-color"
                           number: "",
                           date: "",
                           role: "user",
-                          active: true,
+                          active: false,
                           building: "",
                           start: "",
                           end: "",

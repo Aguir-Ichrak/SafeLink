@@ -11,11 +11,15 @@ import { RiEdit2Fill } from "react-icons/ri";
     comment: [{
       text: "First comment",
       userKey: "-NtkUhtO8ekJmSkLIGE5",
-      date: "--"
+      date: "--",
     },],
     userKey:curentUser.id,
     date:null,
-    like:0
+    like:0,
+    showComment:false,
+    newCommentText:null
+
+
   });
 
   const dispatch = useDispatch();
@@ -23,6 +27,7 @@ import { RiEdit2Fill } from "react-icons/ri";
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      post.date=new Date()
       await dispatch(addPost(post)).then((response) => {
         console.log("response---", response);
       });
@@ -30,10 +35,18 @@ import { RiEdit2Fill } from "react-icons/ri";
       setShowModal(false);
       setPost({
         content: "",
-    comment: {},
+    comment: [{
+      text: "First comment",
+      userKey: "-NtkUhtO8ekJmSkLIGE5",
+      date: "--",
+    },],
     userKey:curentUser.id,
     date:null,
-    like:0
+    like:0,
+    showComment:false,
+    newCommentText:null
+
+
       });
     } catch (error) {
       console.error("Failed to add post:", error);
@@ -95,10 +108,19 @@ className="blue-color"
                         setShowModal(false);
                         setPost({
                           content: "",
-                          comment: {},
-                          userKey:curentUser.id,
-                          date:null,
-                          like:0
+    comment: [{
+      text: "First comment",
+      userKey: "-NtkUhtO8ekJmSkLIGE5",
+      date: "--",
+    },],
+    userKey:curentUser.id,
+    date:null,
+    like:0,
+    showComment:false,
+    newCommentText:null
+
+
+                          
                         });
                       }}
                     >

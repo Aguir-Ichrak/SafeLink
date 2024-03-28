@@ -202,8 +202,8 @@ className="blue-color"
                       <div className="w-60 flex gap-4 flex-col">
                         <Checkbox
                           style={{ color: "rgb(0, 128, 157)" }}
-                          checked={checked}
-                          onChange={handleCheckboxChange}
+                          value={user.active}
+                          onChange={user.active=!user.active}
                           label={
                             <Typography
                               variant="h6"
