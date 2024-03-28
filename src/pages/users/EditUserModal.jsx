@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
 import { DoAlert } from "../DoAlert";
 import { editUser, fetchUsers } from "../../store/UserReducer";
 import { useDispatch } from "react-redux";
 import EditIcon from "../EditIcon";
 import {IconButton} from "@material-tailwind/react";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserPen } from "react-icons/fa6";
 export default function EditUsersModal({ UpUser }) {
   const [user, setUser] = useState({
     name: UpUser.name,
@@ -27,7 +27,6 @@ export default function EditUsersModal({ UpUser }) {
     try {
       e.preventDefault();
       await dispatch(editUser(user.id,user)).then((response) => {
-        console.log("response---", response);
         dispatch(fetchUsers());  
       });
       dispatch(fetchUsers());
@@ -41,11 +40,6 @@ export default function EditUsersModal({ UpUser }) {
   const [selectedBuild, setSelectedBuild] = useState("01");
   const handleBuildChange = (e) => {
     setSelectedBuild(e.target.value);
-  };
-
-  const [checked, setChecked] = useState(true);
-  const handleCheckboxChange = () => {
-    setChecked(!checked);
   };
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -62,33 +56,26 @@ export default function EditUsersModal({ UpUser }) {
       </IconButton>
             {showModal ? (
         <>
-              <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             {/*content*/}
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none w-50">
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none w-40">
               {/*header*/}
               <div className="flex justify-between p-5 rounded-t self-center gap-4">
-                <h3 className="text-3xl font-semibold blue-color" >User Form</h3>
-                <div className="self-center"
-  style={{
-    backgroundColor: "transparent",
-    fontSize:"x-large"
-  }}
->
-  <FaUserEdit
+                <h3 className="text-3xl font-semibold blue-color" >Edit User</h3>
+                <div className="self-center bg-transparent text-xl gap-5">
+  <FaUserPen
 className="blue-color"
   />
 </div>
+
               </div>
               {/*body*/}
               <Card
                 color="transparent"
                 shadow={false}
-                className="flex flex-col nowrap-flex item-center"
-              >
-                <form
-                  className="mt-8 mb-3 w-80 max-w-screen-lg sm:w-96"
-                >
-                  <div className="mb-4 flex flex-col gap-6 ">
+                className="flex items-center justify-end pt-4 px-6	 border-t border-solid border-slate-200 rounded-none">
+                <form className="mt-0.5  w-full max-w-screen-lg sm:w-96">
+                <div className=" flex flex-col gap-6 ">
                     <div className="justify-between container flex gap-04">
                       <div className="w-60 flex gap-4 flex-col">
                         <Typography
@@ -97,18 +84,18 @@ className="blue-color"
                           className="-mb-3"
                         >
                           Full Name
+                          <span class="text-rose-500 ml-0.5">*</span>
                         </Typography>
                         <Input
                           type="text"
                           size="lg"
                           name="name"
-                          className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
                           value={user.name}
                           onChange={data}
-                          required
                         />
                       </div>
                       <div className="w-60 flex gap-4 flex-col">
@@ -123,18 +110,17 @@ className="blue-color"
                           type="text"
                           size="lg"
                           name="address"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
                           value={user.address}
                           onChange={data}
-                          required
                         />
                       </div>
                     </div>
                     <div className="justify-between container flex gap-04">
-                      <div className="w-60 flex gap-4 flex-col">
+                    <div className="w-60 flex gap-4 flex-col">
                         <Typography
                           variant="h6"
                           color="blue-gray"
@@ -147,13 +133,12 @@ className="blue-color"
                           size="lg"
                           name="email"
                           placeholder="name@mail.com"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
                           value={user.email}
                           onChange={data}
-                          required
                         />
                       </div>
                       <div className="w-60 flex gap-4 flex-col">
@@ -163,35 +148,35 @@ className="blue-color"
                           className="-mb-3"
                         >
                           Phone Number
+                          <span class="text-rose-500 ml-0.5">*</span>
                         </Typography>
                         <Input
                           type="text"
                           size="lg"
                           name="number"
                           placeholder="94 1** ***"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
                           onChange={data}
-                          required
                         />
                       </div>
                     </div>
                     <div className="justify-between container flex gap-04">
-                      <div className="w-60 flex gap-4 flex-col">
+                      <div className="w-full flex gap-4 flex-col">
                         <Typography
                           variant="h6"
                           color="blue-gray"
                           className="-mb-3"
                         >
-                          Birth Date{" "}
+                          Birth Date
                         </Typography>
                         <Input
                           type="date"
                           size="lg"
                           name="date"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
@@ -199,38 +184,21 @@ className="blue-color"
                           onChange={data}
                         />
                       </div>
-                      <div className="w-60 flex gap-4 flex-col">
-                        <Checkbox
-                          style={{ color: "rgb(0, 128, 157)" }}
-                          value={user.active}
-                          onChange={user.active=!user.active}
-                          label={
-                            <Typography
-                              variant="h6"
-                              color="blue-gray"
-                              className="flex items-center font-normal font-w"
-                            >
-                              Active User
-                            </Typography>
-                          }
-                          containerProps={{ className: "-ml-2.5" }}
-                        />
-                      </div>
                     </div>
-
                     <div className="justify-between container flex gap-04">
-                      <div className="w-60 flex gap-4 flex-col">
+                    <div className="w-60 flex gap-3 flex-col">
                         <Typography
                           variant="h6"
                           color="blue-gray"
                           className="-mb-3"
                         >
-                          Building{" "}
+                          Building
+                          <span class="text-rose-500 ml-0.5">*</span>
                         </Typography>
                         <select
                           value={selectedBuild}
                           onChange={handleBuildChange}
-                          className="h-full"
+                          className="h-full rounded-md"
                         >
                           <option value="01"> 01</option>
                           <option value="02">02</option>
@@ -243,13 +211,14 @@ className="blue-color"
                           color="blue-gray"
                           className="-mb-3"
                         >
-                          Start Date{" "}
+                          Start Date
+                          <span class="text-rose-500 ml-0.5">*</span>
                         </Typography>
                         <Input
                           type="date"
                           size="lg"
                           name="start"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
@@ -263,13 +232,14 @@ className="blue-color"
                           color="blue-gray"
                           className="-mb-3"
                         >
-                          End Date{" "}
+                          End Date
+                          <span class="text-rose-500 ml-0.5">*</span>
                         </Typography>
                         <Input
                           type="date"
                           size="lg"
                           name="end"
-                          className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent"
                           labelProps={{
                             className: "before:content-none after:content-none",
                           }}
@@ -278,11 +248,30 @@ className="blue-color"
                         />
                       </div>
                     </div>
+                    <div className="w-60 flex gap-4 flex-col">
+                        <Checkbox
+                          value={user.active}
+                          className="!border-t-blue-gray-200 focus:border-gray-200 focus:ring-transparent blue-color"
+                          onChange={user.active=!user.active}
+                          label={
+                            <Typography
+                              variant="h6"
+                              color="blue-gray"
+                              className="flex items-center font-normal font-w"
+                            >
+                              Active User
+                            </Typography>
+                          }
+                          containerProps={{ className: "-ml-2.5" }}
+                        />
+                      </div>
                   </div>
-                  <div className="flex items-center justify-end pt-4 border-t border-solid border-blueGray-200 rounded-b">
-                    {/* loader if var loading =true */}
+                </form>
+              </Card>
+              {/*footer*/}
+              <div className="flex w-full items-center justify-end pt-4 border-t border-solid mb-2 border-slate-200 rounded-none">
                     <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      className="text-red-500 background-transparent font-medium mr-6 py-2 text-sm outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => {
                         setShowModal(false);
@@ -291,16 +280,13 @@ className="blue-color"
                       Close
                     </button>
                     <button
-                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      className="text-green-600 border-green-600 hover:text-green-700 border mr-6	hover:border-green-700 w-1/2 gap-25 active:text-green-700 active:border-green-700 font-medium inline-flex px-3 py-2 text-center sm:w-auto text-sm rounded justify-center hover:shadow-lg  items-center mb-1 ease-linear transition-all duration-150"
                       type="submit"
                       onClick={handleEdit}
                     >
                       Save Modifications
                     </button>
                   </div>
-                </form>
-              </Card>
-              {/*footer*/}
             </div>
           </div>
           {/* </div> */}
