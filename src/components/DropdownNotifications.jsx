@@ -1,15 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
+import { fetchNotifications } from '../store/NotifReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
-function DropdownNotifications({
-  align
-}) {
+function DropdownNotifications({ align }) {
+  const currentUser = useSelector((state) => {return state.users.curentUser});
 
+  const notifications = useSelector((state) => {
+    return state.notifications.Notifications;
+  });
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNotifications(currentUser));
+  }, [dispatch]);
 
   // close on click outside
   useEffect(() => {
@@ -18,9 +29,10 @@ function DropdownNotifications({
       if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
     };
+
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  }, [dropdownOpen]);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -28,9 +40,30 @@ function DropdownNotifications({
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
+
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, [dropdownOpen]);
+
+  const formatDate = (dateString) => {
+    const options = {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+    const today = new Date();
+    if (date.toDateString() === today.toDateString()) {
+      return `Today at ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+    } else {
+      return formattedDate;
+    }
+  };
 
   return (
     <div className="relative inline-flex">
@@ -66,41 +99,23 @@ function DropdownNotifications({
         >
           <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4">Notifications</div>
           <ul>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800 dark:text-slate-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Feb 12, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800 dark:text-slate-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Feb 9, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">🚀<span className="font-medium text-slate-800 dark:text-slate-100">Say goodbye to paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Jan 24, 2020</span>
-              </Link>
-            </li>
+            {notifications.map(notif => (
+              <li className="border-b border-slate-200 dark:border-slate-700 last:border-0" key={notif.id}>
+                <Link
+                  className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
+                  to="#0"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  <span className="block text-sm mb-2">{notif.icon ? notif.icon=='comment' ? '📝':'💜' : '📣'} <span className="font-medium text-slate-800 dark:text-slate-100">{notif.title}</span> {notif.message}</span>
+                  <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">{notif.date ? formatDate(notif.date) : ''}</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </Transition>
     </div>
-  )
+  );
 }
 
 export default DropdownNotifications;
