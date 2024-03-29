@@ -39,10 +39,10 @@ export default function UsersModal() {
         serviceID,
         templateID,
         {
-          from_name: "SAFE LINK",
+          from_name: "SAFE_LINK",
           to_name: user.name,
           to_email:user.email,
-          message: "Your login :"+user.email + "\n"+"Your password : "+ user.password,
+          message:"Your login : "+user.email +"\n"+"Your password : "+ user.password,
         },
         userID
       )
@@ -357,7 +357,6 @@ className="blue-color"
                   </div>
             </div>
           </div>
-          {/* </div> */}
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
