@@ -24,29 +24,13 @@ dispatch(fetchUsers());
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 userHeader">
       <div class="mb-1 w-full">
         <div class="mb-4">
-            {/* <nav class="flex mb-5" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-2">
-                <li class="inline-flex items-center">
-                    <a href="#" class="text-gray-700 hover:text-gray-900 inline-flex items-center">
-                    <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                    Home
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="#" class="text-gray-700 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium">Users</a>
-                    </div>
-                </li>
-                </ol>
-            </nav> */}
             <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">All users</h1>
         </div>
         <div class="sm:flex">
             <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                 <form class="lg:pr-3" action="#" method="GET">
                 <div class="mt-1 relative lg:w-64 xl:w-96">
-                    <input type="search" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-gray-600 block w-full p-2.5 focus:bg-slate-200 dark:border-slate-700 focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded text-slate-800 w-full dark:bg-slate-900 dark:focus:bg-slate-800 dark:focus:border-slate-600 dark:hover:border-slate-600 dark:hover:bg-slate-900" placeholder="Search for users"/>
+                    <input type="search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-gray-600 block w-full p-2.5 focus:bg-slate-200 dark:border-slate-700 focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded text-slate-800 w-full dark:bg-slate-900 dark:focus:bg-slate-800 dark:focus:border-slate-600 dark:hover:border-slate-600 dark:hover:bg-slate-900" placeholder="Search for users"/>
                 </div>
                 </form>
             </div>
@@ -69,9 +53,6 @@ dispatch(fetchUsers());
                 <th className="p-2">
                   <div className="font-semibold text-left">Phone Number</div>
                 </th>
-                {/* <th className="p-2">
-                  <div className="font-semibold text-left">Birth Date</div>
-                </th> */}
                 <th className="p-2">
                   <div className="font-semibold text-left">Status</div>
                 </th>
@@ -106,9 +87,6 @@ dispatch(fetchUsers());
                 <td className="p-2">
                   <div className="text-left" >{user.number}</div>
                 </td>
-                {/* <td className="p-2">
-                  <div className="text-left" >{user.date}</div>
-                </td> */}
                 <td className="p-2">
                   <div className="text-left flex items-center" >
                   <div
@@ -150,7 +128,6 @@ className='bg-transparent'
       <EditUsersModal UpUser={user}/>
       </td>
               </tr>
-
   ))}
             </tbody>
           </table>
