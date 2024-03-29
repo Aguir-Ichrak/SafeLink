@@ -99,16 +99,16 @@ function PostModal() {
               >
                 <div className="flex items-center justify-end pt-4 rounded-b text-center w-full nowrap-flex flex-col">
                   <Textarea
-                    placeholder="Your Comment"
+                    placeholder="Add your new post"
                     name="content"
                     rows={8}
                     value={post.content}
                     onChange={data}
                     className="w-90 mb-4"
                   />
-                  <div className="flex flex-row w-90 justify-end mb-4">
+                  <div className="flex flex-row w-full justify-end mb-4">
                     <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      className="text-red-500 background-transparent font-medium mr-6 py-2 text-sm outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => {
                         setShowModal(false);
@@ -132,7 +132,7 @@ function PostModal() {
                       Cancel
                     </button>
                     <button
-                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm p-05 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                      className="text-green-600 border-green-600 hover:text-green-700 border mr-6	hover:border-green-700 w-1/2 gap-25 active:text-green-700 active:border-green-700 font-medium inline-flex px-3 py-2 text-center sm:w-auto text-sm rounded justify-center hover:shadow-lg  items-center mb-1 ease-linear transition-all duration-150"
                       type="submit"
                       onClick={handleSubmit}
                       disabled={post.content === ""}
