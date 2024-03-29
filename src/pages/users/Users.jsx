@@ -46,7 +46,7 @@ dispatch(fetchUsers());
             <div class="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
                 <form class="lg:pr-3" action="#" method="GET">
                 <div class="mt-1 relative lg:w-64 xl:w-96">
-                    <input type="search" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-gray-600 block w-full p-2.5" placeholder="Search for users"/>
+                    <input type="search" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-gray-600 block w-full p-2.5 focus:bg-slate-200 dark:border-slate-700 focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded text-slate-800 w-full dark:bg-slate-900 dark:focus:bg-slate-800 dark:focus:border-slate-600 dark:hover:border-slate-600 dark:hover:bg-slate-900" placeholder="Search for users"/>
                 </div>
                 </form>
             </div>
@@ -112,9 +112,7 @@ dispatch(fetchUsers());
                 <td className="p-2">
                   <div className="text-left flex items-center" >
                   <div
-                      style={{
-                        backgroundColor: "#ffffff",
-                      }}
+className='bg-transparent'
                     >
                       <GoDotFill 
                         style={{
