@@ -11,9 +11,6 @@ const handleDeleteBuilding = async (e) => {
     e.preventDefault();
   try {
     await dispatch(deleteBuilding(building.id)).then((response) => {
-        console.log("response---", response);
-
-      //   if(response.ok){
     });
     setshowDeleteModal(false);
     }
@@ -59,6 +56,7 @@ catch (error) {
               </div>
             </div>
           </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       )}
     </>
