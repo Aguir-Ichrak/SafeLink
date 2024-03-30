@@ -124,7 +124,7 @@ function Dashboard() {
         ) : null}
         {curentUser && curentUser.role == "user" ? (
           <div className="grid grid-cols-12 gap-6 w-full">
-            <DashboardCard04 />
+            <DashboardCard04 data={users}/>
             <DashboardCard06 AB={AvailableBuildings()} RB={ReservedBuildings()} />
           </div>
         ) : null}
