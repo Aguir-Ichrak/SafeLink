@@ -30,7 +30,7 @@ function DashboardCard13() {
                     billing
                   </div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-slate-800 dark:text-slate-100">-$49.88</span>
+                    <span className="font-medium text-slate-800 dark:text-slate-100">-49.88</span>
                   </div>
                 </div>
               </div>
@@ -112,7 +112,7 @@ function DashboardCard13() {
                     Market Ltd 70 Wilson St London
                   </div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-slate-800 dark:text-slate-100 line-through">+$99.99</span>
+                    <span className="font-medium text-slate-800 dark:text-slate-100 line-through">+99.99</span>
                   </div>
                 </div>
               </div>
@@ -133,7 +133,7 @@ function DashboardCard13() {
                     Market Ltd 70 Wilson St London
                   </div>
                   <div className="shrink-0 self-start ml-2">
-                    <span className="font-medium text-slate-800 dark:text-slate-100">-$49.88</span>
+                    <span className="font-medium text-slate-800 dark:text-slate-100">-49.88</span>
                   </div>
                 </div>
               </div>

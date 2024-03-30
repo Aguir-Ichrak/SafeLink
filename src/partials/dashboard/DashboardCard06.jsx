@@ -1,6 +1,6 @@
 import React from 'react';
 import DoughnutChart from '../../charts/DoughnutChart';
-import { RiBuilding2Fill } from 'react-icons/ri';
+import { FaBuildingShield } from 'react-icons/fa6';
 // Import utilities
 import { tailwindConfig } from '../../utils/Utils';
 
@@ -33,17 +33,15 @@ function DashboardCard06() {
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center gap-5">
       <div
-  style={{
-    backgroundColor: "transparent",
-  }}
+className='bg-transparent'
 >
-  <RiBuilding2Fill
-    style={{
-      color: "black",
-      fontSize:"20px"
-    }}
+<div
+className='bg-transparent'
+>
+  <FaBuildingShield
+className="text-black text-xl"
   />
-</div>
+</div></div>
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">Buildings</h2>
       </header>
 

@@ -42,6 +42,7 @@ function BarChart01({
         },
         scales: {
           y: {
+            // user type
             border: {
               display: false,
             },

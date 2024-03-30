@@ -15,7 +15,6 @@ import Header from './partials/Header';
 // Import pages
 import Dashboard from './pages/Dashboard';
 import SignIn from './pages/SignIn';
-import DashboardAdmin from './pages/DashboardAdmin';
 import Users from './pages/users/Users';
 import Buildings from './pages/buildings/buildings';
 import PostsList from './pages/posts/PostsList';
