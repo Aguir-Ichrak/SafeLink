@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
+import { Card, Input, Checkbox, Typography,Spinner } from "@material-tailwind/react";
 import { DoAlert } from "../DoAlert";
 import { addUser, fetchUsers } from "../../store/UserReducer";
 import { useDispatch } from "react-redux";
@@ -20,6 +20,8 @@ export default function UsersModal() {
     end: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false); // State for managing loading state
+
   function generateRandomKey() {
     const chars =
       "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -57,12 +59,14 @@ export default function UsersModal() {
   }
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
-    try {
+    setLoading(true);
+
       e.preventDefault();
       user.password = generateRandomKey();
-      await dispatch(addUser(user)).then((response) => {
-      });
-      sendEmail()
+       dispatch(addUser(user))
+       .then(() => {
+        console.log('sucesss')
+        sendEmail()
       dispatch(fetchUsers());
       setShowModal(false);
       setUser({
@@ -78,9 +82,15 @@ export default function UsersModal() {
         end: "",
         password: "",
       });
-    } catch (error) {
-      console.error("Failed to add user:", error);
-    }
+        setLoading(false); // Hide loader when save operation completes
+   
+      })
+    .catch((error) => {
+        setLoading(false); // Hide loader if there's an error
+        console.error("Error while saving changes:", error);
+    });
+      
+   
   };
 
   const [selectedBuild, setSelectedBuild] = useState("01");
@@ -352,7 +362,7 @@ className="blue-color"
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      Save User
+                    Save User {loading ? <Spinner  size="small" color="blue" />: null}  
                     </button>
                   </div>
             </div>

@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import { IconButton } from "@material-tailwind/react";
+import { IconButton,Spinner } from "@material-tailwind/react";
 import TrashIcon from "./DeleteIcon";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../store/UserReducer";
 export default function DeleteModal({ user,msg }) {
   const [showDeleteModal, setshowDeleteModal] = useState(false);
+  const [loading, setLoading] = useState(false); // State for managing loading state
 
 const dispatch = useDispatch();
-const handleDeleteUser = async (e) => {
-    e.preventDefault();
-  try {
-    await dispatch(deleteUser(user.id)).then((response) => {
-        console.log("response---", response);
+const handleDeleteUser =  (e) => {
+  setLoading(true); 
 
-      //   if(response.ok){
-    });
-    setshowDeleteModal(false);
-    }
-catch (error) {
-    console.error("Failed to delete user:", error);
-  }
+    e.preventDefault();
+     dispatch(deleteUser(user.id))
+    .then(() => {
+      console.log('sucesss')
+  setLoading(false); 
+
+      setshowDeleteModal(false);
+    })
+  .catch((error) => {
+      setLoading(false); // Hide loader if there's an error
+      console.error("Error while saving changes:", error);
+  });
+
 };
 
   return (
@@ -49,11 +53,11 @@ catch (error) {
                     Cancel
                   </button>
                   <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex"
                     type="button"
                     onClick={handleDeleteUser}
                   >
-                    Yes, Delete
+                    Yes, Delete {loading ? <Spinner  size="small" color="blue" />: null}
                   </button>
                 </div>
               </div>

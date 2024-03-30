@@ -1,5 +1,5 @@
 import React, {  useState } from "react";
-import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
+import { Spinner,Card, Input, Checkbox, Typography } from "@material-tailwind/react";
 import { DoAlert } from "../DoAlert";
 import { editUser, fetchUsers } from "../../store/UserReducer";
 import { useDispatch } from "react-redux";
@@ -20,21 +20,28 @@ export default function EditUsersModal({ UpUser }) {
     end: UpUser.end,
     password: UpUser.password,
   });
+  const [loading, setLoading] = useState(false); // State for managing loading state
 
   const dispatch = useDispatch();
 
-  const handleEdit = async (e) => {
-    try {
+  const handleEdit =  (e) => {
+    setLoading(true);
+
       e.preventDefault();
-      await dispatch(editUser(user.id,user)).then((response) => {
-        dispatch(fetchUsers());  
-      });
-      dispatch(fetchUsers());
+       dispatch(editUser(user.id,user))
+       .then((response) => {
+        dispatch(fetchUsers()); 
+    setLoading(false);
+
       setShowModal(false);
       console.log(user);
-    } catch (error) {
-      console.error("Failed to add user:", error);
-    }
+      })
+      .catch((error) => {
+        setLoading(false); // Hide loader if there's an error
+        console.error("Error while saving changes:", error);
+    });
+      
+    
   };
 
   const [selectedBuild, setSelectedBuild] = useState("01");
@@ -284,7 +291,7 @@ className="blue-color"
                       type="submit"
                       onClick={handleEdit}
                     >
-                      Save Modifications
+                      Save Modifications {loading ? <Spinner  size="small" color="blue" />: null}
                     </button>
                   </div>
             </div>

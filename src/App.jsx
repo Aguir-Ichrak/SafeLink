@@ -20,7 +20,8 @@ import Buildings from './pages/buildings/buildings';
 import PostsList from './pages/posts/PostsList';
 import { useSelector } from 'react-redux';
 import New from './pages/posts/New';
-
+import Profile from './pages/setting/profile';
+import resetPassword from './pages/setting/resetPassword'
 function App() {
   const location = useLocation();
   const currentUser = useSelector((state) => {return state.users.curentUser});
@@ -49,7 +50,9 @@ const navigate = useNavigate()
           {currentUser ? <Route path="/buildings" element={<Buildings />} /> : null}
           {currentUser ? <Route path="/posts" element={<PostsList />} /> : null}
           {currentUser ? <Route path="/new" element={<New />} /> : null}
-
+           <Route path="/settings/account" element={<Profile />} />
+           <Route path="/setting/reste-password" element={<resetPassword />} />
+           
         </Routes>
       </div>
     </div>

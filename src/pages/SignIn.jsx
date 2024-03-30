@@ -8,6 +8,7 @@ import {
   Checkbox,
   Button,
   Typography,
+  Spinner
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,21 +18,30 @@ import { singIn } from "../store/UserReducer";
 export function SignIn() {
   const dispatch = useDispatch();
 const [user,setUser]=useState({email:null,password:null})
-  const [value, setValue] = useState("");
   // const { setTimeActive } = useAuthValue()
   const navigate = useNavigate()
+const [loading,setLoading]=useState(false)
+const [errors,setEroor]=useState(null)
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setEroor(null)
+  setLoading(true);
+  try {
+    const success = await dispatch(singIn(user));
+    setLoading(false);
+    if (success) {
+      navigate('/dashboard');
+    } else {
+      setEroor('Invalid email or password')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-          dispatch(singIn(user))
-          navigate('/dashboard')
-
-          //test if user exist i n fire base with true data && active
-          // if (true) 
-          // if(admin@admin.com){
-            // connecté en tant que admin : role = 'admin'
-          // } else { role='use'}
-  };
+      console.log('Invalid email or password');
+    }
+  } catch (error) {
+    setEroor("Error while signing in:", error)
+    setLoading(false);
+    console.error("Error while signing in:", error);
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200 px-6">
@@ -69,10 +79,12 @@ const [user,setUser]=useState({email:null,password:null})
           </div>
 
           <div className="mt-6">
-            <button className="py-2 px-4 text-center bg-indigo-600 rounded-md w-full text-white text-sm hover:bg-indigo-500" type="submit" onClick={handleSubmit}>
-              Sign in
+            <button className="py-2 px-4 text-center bg-indigo-600 rounded-md w-full text-white text-sm hover:bg-indigo-500 flex justify-center " type="submit" onClick={handleSubmit}>
+              Sign in {loading ? <Spinner  size="small" color="blue" />: null}
             </button>
           </div>
+          <div className="text-rose-950 text-center mt-4">{errors}</div>
+
         </form>
       </div>
     </div>
