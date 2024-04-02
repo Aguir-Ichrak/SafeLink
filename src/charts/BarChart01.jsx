@@ -191,9 +191,9 @@ function BarChart01({
 
   return (
     <React.Fragment>
-      <div className="px-5 py-3">
+      {/* <div className="px-5 py-3">
         <ul ref={legend} className="flex flex-wrap"></ul>
-      </div>
+      </div> */}
       <div className="grow">
         <canvas ref={canvas} width={width} height={height}></canvas>
       </div>

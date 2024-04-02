@@ -19,6 +19,7 @@ export default function UsersModal() {
     start: "",
     end: "",
     password: "",
+    created_at:null
   });
   const [loading, setLoading] = useState(false); // State for managing loading state
 
@@ -57,12 +58,20 @@ export default function UsersModal() {
         }
       );
   }
+  const formatDate = () => {
+    const d = new Date();
+    const day = d.getDate().toString().padStart(2, '0');
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const year = d.getFullYear().toString();
+    return `${day}-${month}-${year}`;
+  };
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     setLoading(true);
 
       e.preventDefault();
       user.password = generateRandomKey();
+      user.created_at=formatDate()
        dispatch(addUser(user))
        .then(() => {
         console.log('sucesss')
@@ -81,6 +90,7 @@ export default function UsersModal() {
         start: "",
         end: "",
         password: "",
+        created_at:null
       });
         setLoading(false); // Hide loader when save operation completes
    
@@ -352,6 +362,7 @@ className="blue-color"
                           start: "",
                           end: "",
                           password: "",
+                          created_at:null
                         });
                       }}
                     >
