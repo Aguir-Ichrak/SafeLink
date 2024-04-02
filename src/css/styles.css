@@ -355,9 +355,6 @@
   text-align-last: center;
 
 }
-.gap-2 {
-  gap: 2rem;
-}
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -666,42 +663,45 @@ border-radius: 0.4rem !important;
     line-height: 1.33;
     letter-spacing: -0.01em;
 }
-@media (min-width: 768px){
-.cguji {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}}
-
-@media (min-width: 768px)
-{.crc9s {
-    margin-right: 0px;
-}}
-
-@media (min-width: 768px)
-{.cid50 {
-    margin-bottom: 0.125rem;
-}}
 
 @media (min-width: 768px)
 {.cnyty {
     margin-left: 2rem;
+}
+.ch5dq {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.cid50 {
+  margin-bottom: 0.125rem;
+}
+.crc9s {
+  margin-right: 0px;
+}
+.cguji {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.c108j {
+  display: block;
 }}
 
-@media (min-width: 768px)
-{.ch5dq {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}}
 
 .cz385 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media (min-width: 1024px)
+{.cj3hv {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}}
 

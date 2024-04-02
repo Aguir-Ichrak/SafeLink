@@ -28,7 +28,7 @@ const handleDeleteUser =  (e) => {
 
   return (
     <>
-     <IconButton className="shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
+     <IconButton className="shadow-none hover:shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
                         setshowDeleteModal(true)
                       }} >
                 <TrashIcon />

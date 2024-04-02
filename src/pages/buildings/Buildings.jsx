@@ -120,7 +120,7 @@ className="bg-transparent"
                     </div>
                   </td>
                   <td className="p-2 flex flex-row nowrap-flex justify-center gap-4 ">
-                    <DeleteBuild building={building} msg={"building"} />
+                    <DeleteBuild building={building} />
                     <EditBuildingsModal UpBuilding={building} />
                   </td>
                 </tr>

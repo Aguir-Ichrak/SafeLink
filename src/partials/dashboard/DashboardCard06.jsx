@@ -30,9 +30,10 @@ function DashboardCard06(data) {
     ],
   };
 
-  useEffect(() => {chartData.datasets.data=[
+  useEffect(() => {if (chartData && chartData.datasets)
+    {chartData.datasets.data=[
     data.AB, data.RB
-  ]},data)
+  ]}},data)
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">

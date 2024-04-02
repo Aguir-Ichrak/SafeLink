@@ -57,11 +57,13 @@ const handleSubmit = async (e) => {
         <form className="mt-4" action="/" method="GET">
           <label className="block">
             <span className="text-gray-700 text-sm">Email</span>
+            <span className="text-rose-500 ml-0.5">*</span>
             <input type="email" name="email" className="form-input mt-1 block w-full rounded-md focus:border-indigo-600" value={user.email} onChange={(e)=>user.email=e.target.value} required/>
           </label>
 
           <label className="block mt-3">
             <span className="text-gray-700 text-sm">Password</span>
+            <span className="text-rose-500 ml-0.5">*</span>
             <input type="password" className="form-input mt-1 block w-full rounded-md focus:border-indigo-600" value={user.password} onChange={(e)=>user.password=e.target.value} required/>
           </label>
 

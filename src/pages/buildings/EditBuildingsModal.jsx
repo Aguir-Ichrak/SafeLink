@@ -39,7 +39,7 @@ export default function EditBuildingsModal({ UpBuilding }) {
   return (
     <>
       <IconButton
-        className="shadow-none"
+        className="shadow-none hover:shadow-none"
         style={{ color: "#00809d" }}
         onClick={() => setShowModal(true)}
       >

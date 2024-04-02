@@ -3,7 +3,7 @@ import { IconButton } from "@material-tailwind/react";
 import TrashIcon from "../DeleteIcon";
 import { useDispatch } from "react-redux";
 import { deleteBuilding } from "../../store/BuildingReducer";
-export default function DeleteModal({ building,msg }) {
+export default function DeleteModal({ building }) {
   const [showDeleteModal, setshowDeleteModal] = useState(false);
 
 const dispatch = useDispatch();
@@ -21,7 +21,7 @@ catch (error) {
 
   return (
     <>
-     <IconButton className="shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
+     <IconButton className="shadow-none hover:shadow-none" style={{color:"#ff0000ad"}}  type="button" onClick={() => {
                         setshowDeleteModal(true)
                       }} >
                 <TrashIcon />

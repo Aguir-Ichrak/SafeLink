@@ -146,12 +146,12 @@ export default function PostsList() {
 
           <div class="bg-white justify-end	w-full dark:bg-slate-800 shadow-md rounded border border-slate-200 dark:border-slate-700 p-5 flex flex-col gap-6 ">
             <div className="bg-white w-full dark:bg-slate-800 dark:border-slate-700  gap-5 flex items-start ">
-              <img
-                class="rounded-full w-8 h-8"
-                src="src/images/signup.gif"
-                width="32"
-                height="32"
-              />
+            <img
+                      className="w-8 h-8 rounded-full"
+                      src="src/images/signin.jpg"
+                      width="20"
+                      height="20"
+                    />
               <div className="relative flex w-full item-center bg-slate-100 rounded grow">
                 <Input
                   type="text"
