@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editCurrentUser } from "../../store/UserReducer";
+import {  Spinner ,Alert} from "@material-tailwind/react";
+
 import reset from "../../images/reset.jpg";
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -12,44 +14,60 @@ function ResetPassword() {
   const currentUser = useSelector((state) => {
     return state.users.curentUser;
   });
-  const [userUpdate, setuserUpdate] = useState({});
-  useEffect(() => {
-    setuserUpdate(currentUser);
-  }, [currentUser]);
+  // const [userUpdate, setuserUpdate] = useState({});
+  // useEffect(() => {
+  //   setuserUpdate(currentUser);
+  // }, [currentUser]);
 
   const [loading, setLoading] = useState(false);
-
+  const [errors, setErrors] = useState(null);
+  const [succes, setSucces] = useState(false);
+  
   const validUserProfile = () => {
+    setErrors(null)
     setLoading(true);
-    userUpdate.password = newPassword;
+    let userUpdate=currentUser
     if (
       currentPassword == currentUser.password &&
       newPassword == confirmPassword
     ) {
+    userUpdate.password = newPassword;
+
       //call api to update user data
-      console.log("ghhjjgfddd");
+      console.log("ghhjjgfddd",userUpdate);
       dispatch(editCurrentUser(userUpdate.id, userUpdate))
         .then(() => {
           console.log("sucesss");
-          setLoading(false); // Hide loader when save operation completes
+          setLoading(false);
+          setSucces(true) ;
+          setTimeout(() => {
+            setSucces(false)
+          }, 2000);
         })
         .catch((error) => {
           setLoading(false); // Hide loader if there's an error
           console.error("Error while saving changes:", error);
         });
     } else {
-      console.error("Error ", error);
+    setLoading(false);
+
+      if(currentPassword != currentUser.password){
+        setErrors('Invalid current Password')
+      }else{
+        setErrors('New Password And Confirm Password Does Not Match')
+      }
+
     }
   };
 
 
-  const data = (e) => {
-    const { name, value } = e.target;
-    setuserUpdate((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // const data = (e) => {
+  //   const { name, value } = e.target;
+  //   setuserUpdate((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
 
   return (
     <div className="bg-white h-full">
@@ -105,8 +123,9 @@ function ResetPassword() {
                 </svg>
               </a>
             </div>
-
+          
             <div className="max-w-96 m-auto	w-1/2">
+            
               <div className="text-xl text-slate-800 dark:text-slate-100 font-bold mb-6">
                 Reset your Password ✨
               </div>
@@ -123,9 +142,9 @@ function ResetPassword() {
                       type="password"
                       name="currentPassword"
                       autoComplete="current-password"
-                      //   value={currentPassword}
+                        value={currentPassword}
                       onChange={(e) => {
-                        setCurrentPassword(e.target.value);
+                        setCurrentPassword(e.target.value)
                       }}
                       //   onChange={data}
                       required
@@ -140,7 +159,7 @@ function ResetPassword() {
                       id="newPass"
                       className="bg-slate-100 dark:bg-transparent item-center dark:border-slate-700 border-slate-200 focus:bg-slate-200 py-2 px-3 text-sm focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded text-slate-800 w-full dark:bg-slate-900 dark:focus:bg-slate-800 dark:focus:border-slate-600 dark:hover:border-slate-600 dark:hover:bg-slate-900"
                       type="password"
-                      //   value={userUpdate.password}
+                        value={newPassword}
                       onChange={(e) => {
                         setNewPassword(e.target.value);
                       }}
@@ -158,25 +177,43 @@ function ResetPassword() {
                       id="ConfNewPass"
                       className="bg-slate-100 dark:bg-transparent item-center dark:border-slate-700 border-slate-200 focus:bg-slate-200 py-2 px-3 text-sm focus:border-slate-200 hover:border-slate-200 focus:ring-transparent rounded text-slate-800 w-full dark:bg-slate-900 dark:focus:bg-slate-800 dark:focus:border-slate-600 dark:hover:border-slate-600 dark:hover:bg-slate-900"
                       type="password"
-                      onChange={data}
+                      value={confirmPassword}
                       autoComplete="confirm-password"
                       name="confirmPassword"
                       required
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
-                <div className="flex justify-end mt-6">
+                <div className="flex justify-end mt-6 ">
                   <button
-                    className="btn whitespace-nowrap bg-indigo-500 text-white"
-                    onClick={() => {
-                      validUserProfile();
-                    }}
+                  type="button"
+                    className="btn whitespace-nowrap bg-indigo-500 text-white h-[40px]"
+                     onClick={(e) => {
+                      e.preventDefault();
+                    validUserProfile();
+                  }}
                   >
-                    Reset Password
+                    Reset Password {loading ? <Spinner size="small" color="blue" className="ml-2"/> : null}
                   </button>
+
                 </div>
+            
+                {errors &&    <Alert
+      className="rounded-none border-l-4 mb-4 mt-4 border-[red] bg-[red]/10 font-medium text-[#red]"
+    >
+      {errors}
+    </Alert>}
               </form>
+              {succes &&    <Alert
+      className="rounded-none border-l-4 mb-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+    >
+      password changed successfully
+    </Alert>}
             </div>
+         
           </div>
         </div>
 
