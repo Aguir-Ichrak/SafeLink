@@ -39,6 +39,9 @@ function ResetPassword() {
         .then(() => {
           console.log("sucesss");
           setLoading(false);
+          setCurrentPassword(null);
+          setNewPassword(null),
+          setConfirmPassword(null);
           setSucces(true) ;
           setTimeout(() => {
             setSucces(false)
