@@ -177,7 +177,7 @@ export const addComment = (data) => {
         const updatedPost = await response.json();
         dispatch(editPostSuccess(updatedPost));
         if(data.post.userKey!==data.commentData.userKey){
-           let notifData={date:new Date(),message:data.userComment+' Commanted your poste',title:'Commnt',icon:'comment',userKey:data.post.userKey}
+           let notifData={date:new Date(),message:data.userComment+' Commanted your poste',title:'Comment',icon:'comment',userKey:data.post.userKey}
         const options2 = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
