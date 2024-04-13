@@ -14,7 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../store/UserReducer";
 import { fetchBuildings } from "../store/BuildingReducer";
 
-function Dashboard() {
+function Dashboard() 
+{
+  const [loader, setLoader] = useState(true);
+
   const curentUser = useSelector((state) => {
     return state.users.curentUser;
   });
@@ -29,6 +32,10 @@ function Dashboard() {
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchBuildings());
+    setTimeout(() => {
+    setLoader(false)
+      
+    }, 700);
   }, [dispatch]);
 
   const activeUsers = () => {
@@ -122,7 +129,7 @@ function Dashboard() {
             </div>
           </div>
         ) : null}
-        {curentUser && curentUser.role == "user" ? (
+        {curentUser && curentUser.role == "user" && !loader ? (
           <div className="grid grid-cols-12 gap-6 w-full">
             <DashboardCard04 data={users}/>
             <DashboardCard06 AB={AvailableBuildings()} RB={ReservedBuildings()} />
