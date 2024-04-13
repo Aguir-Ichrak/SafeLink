@@ -14,10 +14,6 @@ function ResetPassword() {
   const currentUser = useSelector((state) => {
     return state.users.curentUser;
   });
-  // const [userUpdate, setuserUpdate] = useState({});
-  // useEffect(() => {
-  //   setuserUpdate(currentUser);
-  // }, [currentUser]);
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -39,9 +35,9 @@ function ResetPassword() {
         .then(() => {
           console.log("sucesss");
           setLoading(false);
-          setCurrentPassword(null);
-          setNewPassword(null),
-          setConfirmPassword(null);
+          setCurrentPassword("");
+          setNewPassword(""),
+          setConfirmPassword("");
           setSucces(true) ;
           setTimeout(() => {
             setSucces(false)
@@ -56,21 +52,19 @@ function ResetPassword() {
 
       if(currentPassword != currentUser.password){
         setErrors('Invalid current Password')
+        setTimeout(() => {
+            setErrors(false)
+          }, 1500);
       }else{
         setErrors('New Password And Confirm Password Does Not Match')
+        setTimeout(() => {
+            setErrors(false)
+          }, 1500);
       }
 
     }
   };
 
-
-  // const data = (e) => {
-  //   const { name, value } = e.target;
-  //   setuserUpdate((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }));
-  // };
 
   return (
     <div className="bg-white h-full">
@@ -149,7 +143,6 @@ function ResetPassword() {
                       onChange={(e) => {
                         setCurrentPassword(e.target.value)
                       }}
-                      //   onChange={data}
                       required
                     />
                   </div>
@@ -205,13 +198,13 @@ function ResetPassword() {
                 </div>
             
                 {errors &&    <Alert
-      className="rounded-none border-l-4 mb-4 mt-4 border-[red] bg-[red]/10 font-medium text-[#red]"
+      className="rounded-none border-l-4 py-1.5	px-4 mt-4 border-[red] bg-[red]/10 font-medium text-[#red]"
     >
       {errors}
     </Alert>}
               </form>
               {succes &&    <Alert
-      className="rounded-none border-l-4 mb-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+      className="rounded-none border-l-4 py-1.5	px-4 mt-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
     >
       password changed successfully
     </Alert>}
